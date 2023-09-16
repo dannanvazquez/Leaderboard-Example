@@ -26,7 +26,7 @@ public class LoginUIController : MonoBehaviour {
     async void Awake() {
         try {
             await UnityServices.InitializeAsync();
-            usernameInputField.text = AuthenticationService.Instance.PlayerName.Split('#')[0];
+            usernameInputField.text = PlayerPrefs.GetString("LastLoggedUsername");
         } catch (Exception e) {
             Debug.LogException(e);
         }
@@ -99,6 +99,7 @@ public class LoginUIController : MonoBehaviour {
         try {
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
             await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+            PlayerPrefs.SetString("LastLoggedUsername", username);
 
             GetComponent<Canvas>().enabled = false;
             passwordInputField.text = string.Empty;
@@ -117,6 +118,7 @@ public class LoginUIController : MonoBehaviour {
 
         try {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
+            PlayerPrefs.SetString("LastLoggedUsername", username);
 
             GetComponent<Canvas>().enabled = false;
             passwordInputField.text = string.Empty;

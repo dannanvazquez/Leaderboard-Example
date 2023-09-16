@@ -3,6 +3,7 @@ using System;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Leaderboards;
+using Unity.Services.Leaderboards.Exceptions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,9 +28,11 @@ public class MainMenuUIController : MonoBehaviour {
     [Tooltip("The amount of top scores displayed in the leaderboard.")]
     [SerializeField] private int topScoreAmount;
 
+    public void SetNameText(string playerName) => nameText.text = $"Welcome, {playerName}!";
+
     public async void EnableMainMenu() {
         var playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
-        nameText.text = $"Welcome, {playerName.Split('#')[0]}!";
+        SetNameText(playerName);
         versionText.text = $"v{Application.version}";
 
         SetupLeaderboardInfo();
@@ -37,38 +40,53 @@ public class MainMenuUIController : MonoBehaviour {
         GetComponent<Canvas>().enabled = true;
     }
 
-    private async void SetupLeaderboardInfo() {
+    public async void SetupLeaderboardInfo() {
+        // Initialize personal best published
         try {
-            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(leaderboardId);
+            var personalScoreResponse = await LeaderboardsService.Instance.GetPlayerScoreAsync(leaderboardId);
+            personalBestText.text = $"Your personal best: {personalScoreResponse.Score}\nRanked #{personalScoreResponse.Rank + 1}";
+        } catch (LeaderboardsException ex) {
+            if (ex.Reason == LeaderboardsExceptionReason.EntryNotFound) {
+                personalBestText.text = "You do not have a score published.";
+            } else {
+                personalBestText.text = $"Leaderboard error: {ex.Message}.";
 
-            try {
-                if (scoresResponse.Results.Count > 0) {
-                    requestingDataText.text = string.Empty;
-
-                    // Initialize personal best published
-                    var personalScoreResponse = await LeaderboardsService.Instance.GetPlayerScoreAsync(leaderboardId);
-                    if (personalScoreResponse != null) {
-                        personalBestText.text = $"Your personal best: {personalScoreResponse.Score}\nRanked #{personalScoreResponse.Rank + 1}";
-                    } else {
-                        personalBestText.text = "You do not have a score published.";
-                    }
-
-                    // Initialize top scores published
-                    for (int i = 0; i < topScoreAmount; i++) {
-                        if (scoresResponse.Results.Count > i) {
-                            var currentScoreResult = scoresResponse.Results[i];
-                            GameObject currentScorePanel = Instantiate(scorePanelPrefab, scoresHolderTransform);
-                            currentScorePanel.GetComponent<LeaderboardScoreUIController>().SetupScoreDetails(currentScoreResult.PlayerName.Split('#')[0], currentScoreResult.Score.ToString());
-                        } else {
-                            break;
-                        }
-                    }
-                } else {
-                    requestingDataText.text = "There doesn't seem to be any scores published currently. Be the first!";
-                }
-            } catch (Exception ex) {
                 Debug.LogException(ex);
             }
+        } catch (Exception ex) {
+            personalBestText.text = $"Error: {ex.Message}.";
+
+            Debug.LogException(ex);
+        }
+
+        // Initialize top scores published
+        try {
+            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(leaderboardId);
+            if (scoresResponse.Results.Count > 0) {
+                requestingDataText.text = string.Empty;
+                if (scoresHolderTransform.childCount > 0) {
+                    foreach (Transform child in scoresHolderTransform) {
+                        Destroy(child.gameObject);
+                    }
+                }
+
+                for (int i = 0; i < topScoreAmount; i++) {
+                    if (scoresResponse.Results.Count > i) {
+                        var currentScoreResult = scoresResponse.Results[i];
+                        GameObject currentScorePanel = Instantiate(scorePanelPrefab, scoresHolderTransform);
+                        currentScorePanel.GetComponent<LeaderboardScoreUIController>().SetupScoreDetails(currentScoreResult.PlayerName, currentScoreResult.Score.ToString());
+                    } else {
+                        break;
+                    }
+                }
+            } else {
+                requestingDataText.text = "There doesn't seem to be any scores published currently. Be the first!";
+                personalBestText.text = "You do not have a score published.";
+            }
+        } catch (LeaderboardsException ex) {
+            requestingDataText.text = $"Leaderboard error: {ex.Message}.";
+
+            Debug.LogException(ex);
         } catch (Exception ex) {
             requestingDataText.text = $"Error: {ex.Message}.";
 
@@ -76,7 +94,7 @@ public class MainMenuUIController : MonoBehaviour {
         }
     }
 
-    public void PlayGame() {
+    public async void PlayGame() {
         SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
     }
 

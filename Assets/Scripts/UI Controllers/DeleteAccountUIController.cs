@@ -1,7 +1,8 @@
 using Mirror;
 using System;
+using System.Collections.Generic;
 using Unity.Services.Authentication;
-using Unity.Services.Leaderboards;
+using Unity.Services.CloudCode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,8 +12,15 @@ public class DeleteAccountUIController : MonoBehaviour {
     [SerializeField, Scene] private string mainMenuScene;
     [SerializeField] private Canvas settingsCanvas;
 
+    private class TResult {}
+
     public async void DeleteAccount() {
         try {
+            var parameters = new Dictionary<string, object>() {
+                {"playerIDToRemove", AuthenticationService.Instance.PlayerId}
+            };
+            await CloudCodeService.Instance.CallEndpointAsync<TResult>("DeleteLeaderboardEntries", parameters);
+
             await AuthenticationService.Instance.DeleteAccountAsync();
 
             SceneManager.LoadScene(mainMenuScene, LoadSceneMode.Single);

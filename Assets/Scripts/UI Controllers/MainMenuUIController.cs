@@ -94,7 +94,7 @@ public class MainMenuUIController : MonoBehaviour {
         }
     }
 
-    public async void PlayGame() {
+    public void PlayGame() {
         SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
     }
 

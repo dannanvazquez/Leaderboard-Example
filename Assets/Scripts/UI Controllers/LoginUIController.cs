@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
@@ -23,13 +22,8 @@ public class LoginUIController : MonoBehaviour {
     private string username;
     private string password;
 
-    async void Awake() {
-        try {
-            await UnityServices.InitializeAsync();
-            usernameInputField.text = PlayerPrefs.GetString("LastLoggedUsername");
-        } catch (Exception e) {
-            Debug.LogException(e);
-        }
+    private void Awake() {
+        usernameInputField.text = PlayerPrefs.GetString("LastLoggedUsername");
     }
 
     public async void SignUp() {

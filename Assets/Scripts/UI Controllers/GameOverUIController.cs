@@ -1,5 +1,4 @@
 using Mirror;
-using System;
 using TMPro;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Exceptions;

@@ -13,26 +13,27 @@ public class GameOverUIController : MonoBehaviour {
     [SerializeField, Scene] private string gameSceneName;
     [SerializeField, Scene] private string mainMenuSceneName;
 
-    [Header("Leaderboard Settings")]
-    [Tooltip("The ID of the leaderboard being used.")]
-    [SerializeField] private string leaderboardId;
+    private ProjectSettingsScriptableObject projectSettings;
 
     private Canvas canvas;
 
-    private void Awake() => canvas = GetComponent<Canvas>();
+    private void Awake() {
+        canvas = GetComponent<Canvas>();
+        projectSettings = Resources.Load<ProjectSettingsScriptableObject>("ProjectData");
+    }
 
     public async void SetGameOverCanvas(int score) {
         try {
-            var personalScoreResponse = await LeaderboardsService.Instance.GetPlayerScoreAsync(leaderboardId);
+            var personalScoreResponse = await LeaderboardsService.Instance.GetPlayerScoreAsync(projectSettings.leaderboardId);
             if (score > personalScoreResponse.Score) {
-                await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, score);
+                await LeaderboardsService.Instance.AddPlayerScoreAsync(projectSettings.leaderboardId, score);
                 scoreResultText.text = $"You beat your personal best!";
             } else {
                 scoreResultText.text = $"You did not beat your personal best: {personalScoreResponse.Score}";
             }
         } catch (LeaderboardsException ex) {
             if (ex.Reason == LeaderboardsExceptionReason.EntryNotFound) {
-                await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, score);
+                await LeaderboardsService.Instance.AddPlayerScoreAsync(projectSettings.leaderboardId, score);
                 scoreResultText.text = $"You submitted your first score!";
             } else {
                 scoreResultText.text = $"Leaderboard error: {ex.Message}.";

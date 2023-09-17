@@ -24,10 +24,14 @@ public class MainMenuUIController : MonoBehaviour {
     [SerializeField] private GameObject scorePanelPrefab;
 
     [Header("Leaderboard Settings")]
-    [Tooltip("The ID of the leaderboard being used.")]
-    [SerializeField] private string leaderboardId;
     [Tooltip("The amount of top scores displayed in the leaderboard.")]
-    [SerializeField] private int topScoreAmount;
+    public int topScoreAmount;
+
+    private ProjectSettingsScriptableObject projectSettings;
+
+    private void Awake() {
+        projectSettings = Resources.Load<ProjectSettingsScriptableObject>("ProjectData");
+    }
 
     public void SetNameText(string playerName) => nameText.text = $"Welcome, {playerName}!";
 
@@ -44,7 +48,7 @@ public class MainMenuUIController : MonoBehaviour {
     public async void SetupLeaderboardInfo() {
         // Initialize personal best published
         try {
-            var personalScoreResponse = await LeaderboardsService.Instance.GetPlayerScoreAsync(leaderboardId);
+            var personalScoreResponse = await LeaderboardsService.Instance.GetPlayerScoreAsync(projectSettings.leaderboardId);
             personalBestText.text = $"Your personal best: {personalScoreResponse.Score}\nRanked #{personalScoreResponse.Rank + 1}";
         } catch (LeaderboardsException ex) {
             if (ex.Reason == LeaderboardsExceptionReason.EntryNotFound) {
@@ -62,7 +66,7 @@ public class MainMenuUIController : MonoBehaviour {
 
         // Initialize top scores published
         try {
-            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(leaderboardId);
+            var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(projectSettings.leaderboardId);
             if (scoresResponse.Results.Count > 0) {
                 requestingDataText.text = string.Empty;
                 if (scoresHolderTransform.childCount > 0) {

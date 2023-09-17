@@ -29,7 +29,7 @@ public class GameOverUIController : MonoBehaviour {
                 await LeaderboardsService.Instance.AddPlayerScoreAsync(leaderboardId, score);
                 scoreResultText.text = $"You beat your personal best!";
             } else {
-                scoreResultText.text = $"You did not beat your personal best: {score}.";
+                scoreResultText.text = $"You did not beat your personal best: {personalScoreResponse.Score}";
             }
         } catch (LeaderboardsException ex) {
             if (ex.Reason == LeaderboardsExceptionReason.EntryNotFound) {

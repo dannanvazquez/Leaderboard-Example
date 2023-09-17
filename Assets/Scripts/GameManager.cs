@@ -69,14 +69,14 @@ public class GameManager : MonoBehaviour {
         } else if ((FormType)(((int)playerForm - 1) % 3) == computerForm) {
             roundResult = RoundResult.WON;
 
-            results = $"{playerForm} beats {computerForm}! You win!";
+            results = $"{playerForm} beats {computerForm}!\nYou win!";
 
             chosenFormsUIController.SetFormStateColor(true, RoundResult.WON);
             chosenFormsUIController.SetFormStateColor(false, RoundResult.LOST);
         } else {
             roundResult = RoundResult.LOST;
 
-            results = $"{computerForm} beats {playerForm}! You lost!";
+            results = $"{computerForm} beats {playerForm}!\nYou lost!";
 
             chosenFormsUIController.SetFormStateColor(true, RoundResult.LOST);
             chosenFormsUIController.SetFormStateColor(false, RoundResult.WON);

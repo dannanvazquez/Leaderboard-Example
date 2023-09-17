@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using Unity.Services.Leaderboards;
 using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
@@ -19,11 +20,14 @@ public class LoginUIController : MonoBehaviour {
     [SerializeField] private TMP_Text loginErrorText;
     [SerializeField] private MainMenuUIController mainMenuUIController;
 
+    private ProjectSettingsScriptableObject projectSettings;
+
     private string username;
     private string password;
 
     private void Awake() {
         usernameInputField.text = PlayerPrefs.GetString("LastLoggedUsername");
+        projectSettings = Resources.Load<ProjectSettingsScriptableObject>("ProjectData");
     }
 
     public async void SignUp() {
@@ -93,6 +97,7 @@ public class LoginUIController : MonoBehaviour {
         try {
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
             await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
+            await LeaderboardsService.Instance.AddPlayerScoreAsync(projectSettings.leaderboardId, 0);
             PlayerPrefs.SetString("LastLoggedUsername", username);
 
             GetComponent<Canvas>().enabled = false;

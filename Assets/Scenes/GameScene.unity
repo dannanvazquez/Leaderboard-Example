@@ -323,6 +323,8 @@ MonoBehaviour:
   gameOverUIController: {fileID: 612016218752100360}
   score: 0
   livesLeft: 3
+  pauseMenuScene: Assets/Scenes/PauseMenu.unity
+  isPaused: 0
 --- !u!114 &402950236 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6655798575333153627, guid: 82a3479d4cd04fd49b6e906bddce7d17,
@@ -684,6 +686,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2035775520617935665, guid: 34d1b9e9c1a6f8340aa350afbcded89d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6b1bfa748364b48bebc54f171bfebbbb,
+        type: 3}
     - target: {fileID: 2035775520987102148, guid: 34d1b9e9c1a6f8340aa350afbcded89d,
         type: 3}
       propertyPath: m_Name

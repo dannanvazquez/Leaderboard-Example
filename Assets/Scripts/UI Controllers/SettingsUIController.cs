@@ -8,6 +8,7 @@ public class SettingsUIController : MonoBehaviour {
     [Header("References")]
     [SerializeField] private Canvas nameChangeCanvas;
     [SerializeField] private Canvas deleteAccountCanvas;
+    [SerializeField, Scene] private string mainMenuSceneName;
     [SerializeField, Scene] private string settingsScene;
 
     public async void SwitchNameChangeCanvas() {
@@ -24,6 +25,10 @@ public class SettingsUIController : MonoBehaviour {
     }
 
     public void BackToMainMenu() {
+        SceneManager.LoadScene(mainMenuSceneName, LoadSceneMode.Single);
+    }
+
+    public void ExitSettings() {
         SceneManager.UnloadSceneAsync(settingsScene);
     }
 }

@@ -1,5 +1,9 @@
+using Mirror;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum FormType { NONE, ROCK, PAPER, SCISSORS }
 public enum RoundResult { NONE, LOST, DRAW, WON }
@@ -16,10 +20,15 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private int score;
     [SerializeField] private int livesLeft;
 
+    [Header("Scene References")]
+    [SerializeField, Scene] private string pauseMenuScene;
+
     private FormType playerForm = FormType.NONE;
     private FormType computerForm = FormType.NONE;
 
     private RoundResult roundResult = RoundResult.NONE;
+
+    [HideInInspector] public bool isPaused = false;
 
     public int GetScore() { return score; }
 
@@ -37,6 +46,17 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         playerStateUIController.SetScoreText(score);
         playerStateUIController.SetLivesText(livesLeft);
+    }
+
+    private void Update() {
+        if (!isPaused && Input.GetKeyDown(KeyCode.Escape)) {
+            Pause();
+        }
+    }
+
+    public void Pause() {
+        isPaused = true;
+        SceneManager.LoadScene(pauseMenuScene, LoadSceneMode.Additive);
     }
 
     public void StartRound(FormType form) {

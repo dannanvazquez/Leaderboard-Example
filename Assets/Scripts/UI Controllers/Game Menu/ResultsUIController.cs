@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
 public class ResultsUIController : MonoBehaviour {
-    [Header("Results Text Reference")]
+    [Header("Text References")]
     [SerializeField] private TMP_Text resultsText;
 
     private Canvas canvas;

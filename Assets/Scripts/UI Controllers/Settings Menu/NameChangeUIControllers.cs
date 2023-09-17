@@ -5,10 +5,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
 public class NameChangeUIControllers : MonoBehaviour {
-    [Header("References")]
-    public TMP_InputField playerNameInputField;
+    [Header("UI References")]
+    [SerializeField] private TMP_InputField playerNameInputField;
     [SerializeField] private TMP_Text errorText;
     [SerializeField] private Canvas settingsCanvas;
+
+    public void SetPlayerNameText(string playerName) {
+        playerNameInputField.text = playerName;
+    }
 
     public async void ChangeName() {
         errorText.text = string.Empty;

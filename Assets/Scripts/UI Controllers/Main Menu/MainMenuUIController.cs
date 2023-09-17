@@ -8,14 +8,16 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Canvas))]
 public class MainMenuUIController : MonoBehaviour {
-    [Header("General References")]
+    [Header("UI References")]
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text versionText;
     [SerializeField] private Canvas loginCanvas;
+
+    [Header("Scene References")]
     [SerializeField, Scene] private string gameScene;
     [SerializeField, Scene] private string settingsMenuScene;
 
-    [Header("Leaderboard References")]
+    [Header("Leaderboard UI References")]
     [SerializeField] private TMP_Text requestingDataText;
     [SerializeField] private TMP_Text personalBestText;
     [SerializeField] private Transform scoresHolderTransform;

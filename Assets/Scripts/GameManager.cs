@@ -11,14 +11,15 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private FormChoicesUIController formChoicesUIController;
     [SerializeField] private ResultsUIController resultsUIController;
     [SerializeField] private GameOverUIController gameOverUIController;
-    [SerializeField] private SceneAttribute scene;
-
-    [Header("Player State Settings")]
-    [SerializeField] private int score;
-    [SerializeField] private int livesLeft;
 
     [Header("Scene References")]
     [SerializeField, Scene] private string pauseMenuScene;
+
+    [Header("Player State Settings")]
+    [Tooltip("The score of the player.")]
+    [SerializeField] private int score;
+    [Tooltip("The amount of lives left of the player.")]
+    [SerializeField] private int livesLeft;
 
     private FormType playerForm = FormType.NONE;
     private FormType computerForm = FormType.NONE;

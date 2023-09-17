@@ -7,7 +7,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
 public class ServicesUIController : MonoBehaviour {
-    [Header("References")]
+    [Header("UI References")]
     [SerializeField] private TMP_Text serviceInfoText;
     [SerializeField] private Canvas loginCanvas;
     [SerializeField] private MainMenuUIController mainMenuUIController;

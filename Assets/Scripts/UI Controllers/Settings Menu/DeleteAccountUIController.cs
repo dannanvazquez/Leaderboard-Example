@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Canvas))]
 public class DeleteAccountUIController : MonoBehaviour {
-    [Header("References")]
-    [SerializeField, Scene] private string mainMenuScene;
+    [Header("UI References")]
     [SerializeField] private Canvas settingsCanvas;
+
+    [Header("Scene References")]
+    [SerializeField, Scene] private string mainMenuScene;
 
     private class TResult { }
 

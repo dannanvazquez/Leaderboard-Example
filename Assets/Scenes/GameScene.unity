@@ -321,9 +321,9 @@ MonoBehaviour:
   formChoicesUIController: {fileID: 1361238174}
   resultsUIController: {fileID: 578002671}
   gameOverUIController: {fileID: 612016218752100360}
+  pauseMenuScene: Assets/Scenes/PauseMenu.unity
   score: 0
   livesLeft: 3
-  pauseMenuScene: Assets/Scenes/PauseMenu.unity
   isPaused: 0
 --- !u!114 &402950236 stripped
 MonoBehaviour:
@@ -1160,12 +1160,12 @@ PrefabInstance:
     - target: {fileID: 1250020326035487003, guid: 83d99fb7b076e52428763b12b3d0f89c,
         type: 3}
       propertyPath: gameSceneName
-      value: 
+      value: Assets/Scenes/GameScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1250020326035487003, guid: 83d99fb7b076e52428763b12b3d0f89c,
         type: 3}
       propertyPath: mainMenuSceneName
-      value: 
+      value: Assets/Scenes/MainMenu.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1812319927453707211, guid: 83d99fb7b076e52428763b12b3d0f89c,
         type: 3}

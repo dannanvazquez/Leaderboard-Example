@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 public class LeaderboardScoreUIController : MonoBehaviour {
-    [Header("References")]
+    [Header("UI References")]
     [SerializeField] private TMP_Text playerNameText;
     [SerializeField] private TMP_Text scoreText;
 

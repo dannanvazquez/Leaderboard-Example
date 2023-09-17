@@ -4,15 +4,17 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Canvas))]
 public class SettingsUIController : MonoBehaviour {
-    [Header("References")]
+    [Header("UI References")]
     [SerializeField] private Canvas nameChangeCanvas;
     [SerializeField] private Canvas deleteAccountCanvas;
+
+    [Header("Scene References")]
     [SerializeField, Scene] private string mainMenuSceneName;
     [SerializeField, Scene] private string settingsScene;
 
     public async void SwitchNameChangeCanvas() {
         var playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
-        nameChangeCanvas.GetComponent<NameChangeUIControllers>().playerNameInputField.text = playerName.Split('#')[0];
+        nameChangeCanvas.GetComponent<NameChangeUIControllers>().SetPlayerNameText(playerName.Split('#')[0]);
 
         GetComponent<Canvas>().enabled = false;
         nameChangeCanvas.enabled = true;

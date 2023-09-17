@@ -7,15 +7,15 @@ using UnityEngine;
 
 [RequireComponent(typeof(Canvas))]
 public class LoginUIController : MonoBehaviour {
-    [Header("Username References")]
+    [Header("Username UI References")]
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_Text usernameErrorText;
 
-    [Header("Password References")]
+    [Header("Password UI References")]
     [SerializeField] private TMP_InputField passwordInputField;
     [SerializeField] private TMP_Text passwordErrorText;
 
-    [Header("Login References")]
+    [Header("Login UI References")]
     [SerializeField] private TMP_Text loginErrorText;
     [SerializeField] private MainMenuUIController mainMenuUIController;
 

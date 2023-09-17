@@ -1,4 +1,3 @@
-using Mirror;
 using TMPro;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Exceptions;

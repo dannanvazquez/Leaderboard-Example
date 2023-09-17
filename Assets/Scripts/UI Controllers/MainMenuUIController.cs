@@ -1,4 +1,3 @@
-using Mirror;
 using System;
 using TMPro;
 using Unity.Services.Authentication;

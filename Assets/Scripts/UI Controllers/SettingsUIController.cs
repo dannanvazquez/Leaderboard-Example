@@ -1,4 +1,3 @@
-using Mirror;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.SceneManagement;

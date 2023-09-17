@@ -1,4 +1,3 @@
-using Mirror;
 using System;
 using System.Collections.Generic;
 using Unity.Services.Authentication;
@@ -12,7 +11,7 @@ public class DeleteAccountUIController : MonoBehaviour {
     [SerializeField, Scene] private string mainMenuScene;
     [SerializeField] private Canvas settingsCanvas;
 
-    private class TResult {}
+    private class TResult { }
 
     public async void DeleteAccount() {
         try {

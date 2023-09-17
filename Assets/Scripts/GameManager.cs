@@ -1,7 +1,3 @@
-using Mirror;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +11,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private FormChoicesUIController formChoicesUIController;
     [SerializeField] private ResultsUIController resultsUIController;
     [SerializeField] private GameOverUIController gameOverUIController;
+    [SerializeField] private SceneAttribute scene;
 
     [Header("Player State Settings")]
     [SerializeField] private int score;

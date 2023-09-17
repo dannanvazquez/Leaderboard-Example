@@ -9,7 +9,7 @@ public class PausedUIController : MonoBehaviour {
     [SerializeField, Scene] private string settingsSceneName;
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape) && !IsSceneLoaded(settingsSceneName)) {
+        if (Input.GetButtonDown("Cancel") && !IsSceneLoaded(settingsSceneName)) {
             Resume();
         }
     }

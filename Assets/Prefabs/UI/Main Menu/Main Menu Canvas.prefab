@@ -503,7 +503,6 @@ MonoBehaviour:
   scoresHolderTransform: {fileID: 4560690406566185639}
   scorePanelPrefab: {fileID: 4605398749453630820, guid: de980ff826f41b54e9bb1fadef330974,
     type: 3}
-  leaderboardId: Game
   topScoreAmount: 10
 --- !u!223 &3804614461068036034
 Canvas:
@@ -512,7 +511,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3804614461068036039}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -904,7 +903,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Leaderboard Example
+  m_text: Rock Paper Scissors
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fca2bb2df28a69547883685938bcfd00, type: 2}
   m_sharedMaterial: {fileID: -6212108725013626206, guid: fca2bb2df28a69547883685938bcfd00,

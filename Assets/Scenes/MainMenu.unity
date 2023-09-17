@@ -1266,11 +1266,6 @@ PrefabInstance:
       propertyPath: loginCanvas
       value: 
       objectReference: {fileID: 910695835}
-    - target: {fileID: 3804614461068036034, guid: 0f429cfe4a0247841877a0332bd130ab,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3804614461068036035, guid: 0f429cfe4a0247841877a0332bd130ab,
         type: 3}
       propertyPath: m_Pivot.x

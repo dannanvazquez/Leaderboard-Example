@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Update() {
-        if (!isPaused && Input.GetKeyDown(KeyCode.Escape)) {
+        if (!isPaused && Input.GetButtonDown("Cancel")) {
             Pause();
         }
     }

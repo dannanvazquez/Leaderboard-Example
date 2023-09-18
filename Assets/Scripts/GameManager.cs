@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
     private RoundResult roundResult = RoundResult.NONE;
 
     [HideInInspector] public bool isPaused = false;
+    [HideInInspector] public string gameData = "";
 
     public int GetScore() { return score; }
 
@@ -108,6 +109,8 @@ public class GameManager : MonoBehaviour {
         playerStateUIController.SetScoreText(score);
         playerStateUIController.SetLivesText(livesLeft);
         resultsUIController.SetResultsText(results);
+
+        gameData += (int)playerForm - 1 + (((int)computerForm - 1) * 3);
     }
 
     public void FinishRound() {

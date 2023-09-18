@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using TMPro;
+using Unity.Services.CloudSave;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Exceptions;
 using UnityEngine;
@@ -27,6 +29,10 @@ public class GameOverUIController : MonoBehaviour {
             var personalScoreResponse = await LeaderboardsService.Instance.GetPlayerScoreAsync(projectSettings.leaderboardId);
             if (score > personalScoreResponse.Score) {
                 await LeaderboardsService.Instance.AddPlayerScoreAsync(projectSettings.leaderboardId, score);
+
+                var data = new Dictionary<string, object> { { "PersonalBestGame", GameManager.Instance.gameData } };
+                await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+
                 scoreResultText.text = $"You beat your personal best!";
             } else {
                 scoreResultText.text = $"You did not beat your personal best: {personalScoreResponse.Score}";
@@ -34,6 +40,10 @@ public class GameOverUIController : MonoBehaviour {
         } catch (LeaderboardsException ex) {
             if (ex.Reason == LeaderboardsExceptionReason.EntryNotFound) {
                 await LeaderboardsService.Instance.AddPlayerScoreAsync(projectSettings.leaderboardId, score);
+
+                var data = new Dictionary<string, object> { { "PersonalBestGame", GameManager.Instance.gameData } };
+                await CloudSaveService.Instance.Data.ForceSaveAsync(data);
+
                 scoreResultText.text = $"You submitted your first score!";
             } else {
                 scoreResultText.text = $"Leaderboard error: {ex.Message}.";
@@ -42,6 +52,7 @@ public class GameOverUIController : MonoBehaviour {
             }
         }
 
+        GameManager.Instance.gameData = "";
         canvas.enabled = true;
     }
 

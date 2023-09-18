@@ -117,12 +117,10 @@ public class MainMenuUIController : MonoBehaviour {
     }
 
     public void QuitApplication() {
-#if (UNITY_EDITOR)
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#elif (UNITY_STANDALONE)
+    #else
         Application.Quit();
-#elif (UNITY_WEBGL)
-        Application.OpenURL(Application.absoluteURL);
-#endif
+    #endif
     }
 }
